@@ -27,6 +27,7 @@ require_relative 'moltin/models/field'
 require_relative 'moltin/models/entry'
 require_relative 'moltin/models/included'
 require_relative 'moltin/models/customer'
+require_relative 'moltin/models/address'
 
 require_relative 'moltin/version'
 require_relative 'moltin/configuration'
@@ -65,6 +66,7 @@ require_relative 'moltin/resources/flows'
 require_relative 'moltin/resources/fields'
 require_relative 'moltin/resources/entries'
 require_relative 'moltin/resources/customers'
+require_relative 'moltin/resources/addresses'
 
 require_relative 'moltin/client'
 

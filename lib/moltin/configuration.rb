@@ -44,6 +44,7 @@ module Moltin
         variations: { name: 'product-variation', model: Moltin::Models::Variation },
         product_variations: { name: 'product-variation', model: Moltin::Models::Variation },
         customers: { name: 'customer', model: Moltin::Models::Customer },
+        addresses: { name: 'address', model: Moltin::Models::Address },
 
         brand: { name: 'brand', model: Moltin::Models::Brand },
         cart_item: { name: 'cart-item', model: Moltin::Models::CartItem },
@@ -69,7 +70,8 @@ module Moltin
         product_variation: { name: 'product-variation', model: Moltin::Models::Variation },
         parent: { name: 'category', model: Moltin::Models::Category },
         children: { name: 'category', model: Moltin::Models::Category },
-        customer: { name: 'customer', model: Moltin::Models::Customer }
+        customer: { name: 'customer', model: Moltin::Models::Customer },
+        address: { name: 'address', model: Moltin::Models::Address }
       }
     }.freeze
 
