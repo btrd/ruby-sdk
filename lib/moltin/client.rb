@@ -21,7 +21,8 @@ module Moltin
       settings: Moltin::Resources::Settings,
       flows: Moltin::Resources::Flows,
       fields: Moltin::Resources::Fields,
-      entries: Moltin::Resources::Entries
+      entries: Moltin::Resources::Entries,
+      customers: Moltin::Resources::Customers
     }.freeze
 
     # The Moltin configuration.
