@@ -180,13 +180,13 @@ module Moltin
 
       def log_response(resp)
         return if @logger.blank? || resp.status.between?(200, 299)
-        @logger.info '*************************************'
-        @logger.info "Moltin API Response Error"
-        @logger.info '-------------------------------------'
-        @logger.info 'Body'
-        @logger.info resp.body
-        @logger.info '-------------------------------------'
-        @logger.info '*************************************'
+        @logger.error '*************************************'
+        @logger.error "Moltin API Response Error"
+        @logger.error '-------------------------------------'
+        @logger.error 'Body'
+        @logger.error resp.body
+        @logger.error '-------------------------------------'
+        @logger.error '*************************************'
       end
 
       def set_headers(req)
