@@ -49,6 +49,8 @@ module Moltin
         log_request(method, uri, options)
         resp = send(method, options)
 
+        log_response(resp)
+
         begin
           { status: resp.status, body: JSON.parse(resp.body) }
         rescue JSON::ParserError
@@ -149,37 +151,42 @@ module Moltin
       private
 
       def log_request(method, uri, options)
-        if @logger
-          @logger.info '*************************************'
-          @logger.info "Moltin API Call: #{method.upcase} #{uri}"
+        return if @logger.blank?
+        @logger.info '*************************************'
+        @logger.info "Moltin API Call: #{method.upcase} #{uri}"
+        @logger.info '-------------------------------------'
+        @logger.info 'Headers'
+        @logger.info "X-MOLTIN-LANGUAGE=#{@language}" if @language
+        @logger.info "X-MOLTIN-CURRENCY=#{@currency_code}" if @currency_code
+        @logger.info "X-MOLTIN-LOCALE=#{@locale}" if @locale
+        @logger.info '-------------------------------------'
+        if options[:query_params]
+          @logger.info 'Query Params'
+          @logger.info options[:query_params]
           @logger.info '-------------------------------------'
-
-          @logger.info 'Headers'
-          @logger.info "X-MOLTIN-LANGUAGE=#{@language}" if @language
-          @logger.info "X-MOLTIN-CURRENCY=#{@currency_code}" if @currency_code
-          @logger.info "X-MOLTIN-LOCALE=#{@locale}" if @locale
-          @logger.info '-------------------------------------'
-
-          if options[:query_params]
-            @logger.info 'Query Params'
-            @logger.info options[:query_params]
-            @logger.info '-------------------------------------'
-          end
-
-          if options[:body]
-            @logger.info 'Body'
-            @logger.info options[:body]
-            @logger.info '-------------------------------------'
-          end
-
-          if options[:content_type]
-            @logger.info 'Content-Type'
-            @logger.info options[:content_type]
-            @logger.info '-------------------------------------'
-          end
-
-          @logger.info '*************************************'
         end
+        if options[:body]
+          @logger.info 'Body'
+          @logger.info options[:body]
+          @logger.info '-------------------------------------'
+        end
+        if options[:content_type]
+          @logger.info 'Content-Type'
+          @logger.info options[:content_type]
+          @logger.info '-------------------------------------'
+        end
+        @logger.info '*************************************'
+      end
+
+      def log_response(resp)
+        return if @logger.blank? || resp.status.between?(200, 299)
+        @logger.info '*************************************'
+        @logger.info "Moltin API Response Error"
+        @logger.info '-------------------------------------'
+        @logger.info 'Body'
+        @logger.info resp.body
+        @logger.info '-------------------------------------'
+        @logger.info '*************************************'
       end
 
       def set_headers(req)
